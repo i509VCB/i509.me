@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    background-color: lightslategray;
+}
+
+footer {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgb(54, 54, 54);
+    position: absolute;
+    display: block;
+}
+
+.content {
+    width: 90%;
+    padding-left: 5%;
+}
+
+div.footer-left {
+    float: left;
+    text-align: left;
+    padding-left: 3em;
+}
+
+div.footer-right {
+    float: right;
+    text-align: right;
+    padding-right: 3em;
+}
+
+.footer-link {
+    color: #f0a16d;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.footer-text {
+    color: black;
+}

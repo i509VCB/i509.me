@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ page.title }}
+{% endblock title %}
+
+{% block content %}
+
+<h1 class="title">
+  <p>
+    <a href="{{ get_url(path='@/_index.md') }}">i509VCB</a> >
+    {% for ancestor in page.ancestors %}
+      {# Ignore the first ancestor so that _index does not appear #}
+      {% if loop.first %} 
+        {% continue %}
+      {% endif %}
+  
+      <a href="">{{ ancestor.title | safe }}</a> >
+    {% endfor %}
+  
+    {{ page.title }}
+  </p>
+</h1>
+
+{{ page.content | safe }}
+{% endblock content %}
