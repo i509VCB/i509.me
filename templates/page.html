@@ -8,7 +8,7 @@
 
 <h1 class="title">
   <p>
-    <a href="{{ get_url(path='@/_index.md') }}">i509VCB</a> >
+    <a href="{{ get_url(path='@/_index.md') }}" class="breadcrumb-link">i509VCB</a> >
     {% for ancestor in page.ancestors %}
       {# Ignore the first ancestor so that _index does not appear #}
       {% if loop.first %} 

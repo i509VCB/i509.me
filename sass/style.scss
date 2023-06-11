@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: -system-ui, sans-serif;
 }
 
 html {
@@ -10,7 +11,7 @@ html {
 body {
     position: relative;
     min-height: 100vh;
-    background-color: lightslategray;
+    background-color: rgb(29, 29, 29);
 }
 
 footer {
@@ -22,6 +23,25 @@ footer {
     display: block;
 }
 
+p, h1, h2, h3, h4, h5, ul, li::marker {
+    color: white;
+    padding-top: 0.5pt;
+    padding-bottom: 0.5pt;
+}
+
+ul {
+    padding-left: 1em;
+}
+
+a {
+    color: #3893ee;
+    text-decoration: none;
+}
+
+.breadcrumb-link {
+    text-decoration: none;
+}
+
 .content {
     width: 90%;
     padding-left: 5%;
@@ -30,24 +50,15 @@ footer {
 div.footer-left {
     float: left;
     text-align: left;
-    padding-left: 3em;
+    padding-left: 2em;
 }
 
 div.footer-right {
     float: right;
     text-align: right;
-    padding-right: 3em;
-}
-
-.footer-link {
-    color: #f0a16d;
-    text-decoration: none;
-}
-
-.footer-link:hover {
-    text-decoration: underline;
+    padding-right: 2em;
 }
 
 .footer-text {
-    color: black;
+    color: white;
 }

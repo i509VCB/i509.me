@@ -1,4 +1,4 @@
-use std::{env, process::{Command, Stdio}};
+use std::{env, process::{Command, Stdio, Child}, io};
 
 fn main() {
     let args = env::args().nth(1);
@@ -45,6 +45,7 @@ fn serve(envs: Envs) {
     let mut command = Command::new("zola");
     command.arg("serve");
 
+    dbg!(&envs.git_hash);
     if let Some(git_hash) = envs.git_hash {
         command.env("SITE_COMMIT", git_hash);
     }
@@ -53,7 +54,18 @@ fn serve(envs: Envs) {
         command.arg("--open");
     }
 
-    command.spawn().expect("Unable to serve page");
+    let zola_process = command.spawn().expect("Unable to serve page");
+    wait_for_ctrlc(zola_process);
+}
+
+fn wait_for_ctrlc(mut child: Child) {
+    ctrlc::set_handler(move || {
+        child.kill().expect("Could not kill zola subprocess");
+        std::process::exit(0);
+    })
+    .expect("Unable to set Ctrl-C handler");
+
+    loop {}
 }
 
 fn print_help() {

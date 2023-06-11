@@ -8,3 +8,6 @@ publish = false
 [[bin]]
 name = "main"
 path = "xtask/main.rs"
+
+[dependencies]
+ctrlc = "3.4.0"

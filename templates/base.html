@@ -23,8 +23,9 @@
   </div>
   <div class="footer-right">
     <p class="footer-text">
-      {% if get_env(name="SITE_COMMIT", default=false) %}
-        Built from {{ get_env(name="SITE_COMMIT") }}
+      {%- set git_hash = get_env(name="SITE_COMMIT", default=false) -%}
+      {% if git_hash is string %}
+        Built from {{ git_hash }}
       {% else %}
         Unreleased dev build
       {% endif %}
