@@ -1,4 +1,7 @@
-use std::{env, process::{Command, Stdio, Child}, io};
+use std::{
+    env,
+    process::{Child, Command, Stdio},
+};
 
 fn main() {
     let args = env::args().nth(1);
@@ -45,7 +48,6 @@ fn serve(envs: Envs) {
     let mut command = Command::new("zola");
     command.arg("serve");
 
-    dbg!(&envs.git_hash);
     if let Some(git_hash) = envs.git_hash {
         command.env("SITE_COMMIT", git_hash);
     }

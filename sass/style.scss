@@ -23,10 +23,20 @@ footer {
     display: block;
 }
 
-p, h1, h2, h3, h4, h5, ul, li::marker {
+p, h1, h2, h3, h4, h5, ul, li::marker, tr {
     color: white;
     padding-top: 0.5pt;
     padding-bottom: 0.5pt;
+}
+
+td {
+    padding: 4px;
+    border: 1px solid;
+    color: white;
+}
+
+table, td {
+    border-collapse: collapse;
 }
 
 ul {

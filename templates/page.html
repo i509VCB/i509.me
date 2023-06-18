@@ -1,26 +1,46 @@
 {% extends "base.html" %}
 
 {% block title %}
+
+{% if page.title %}
 {{ page.title }}
+{% endif %}
+
+{% if section.title %}
+{{ section.title }}
+{% endif %}
+
 {% endblock title %}
 
 {% block content %}
 
 <h1 class="title">
   <p>
-    <a href="{{ get_url(path='@/_index.md') }}" class="breadcrumb-link">i509VCB</a> >
-    {% for ancestor in page.ancestors %}
-      {# Ignore the first ancestor so that _index does not appear #}
-      {% if loop.first %} 
-        {% continue %}
-      {% endif %}
-  
-      <a href="">{{ ancestor.title | safe }}</a> >
+    {% set current = section | default(value=page) %}
+
+    {# TODO: Check this with a screen reader since the > sign will be likely spoken? #}
+    {% for ancestor in current.ancestors %}
+      {% set info = get_section(path=ancestor) %}
+      <a href="{{ info.permalink }}" class="breadcrumb-link">
+        {{ info.title | default(value="") | safe }}
+      </a>
+      <span>></span>
     {% endfor %}
-  
-    {{ page.title }}
+
+    {% if page.title %}
+      {{ page.title }}
+    {% elif section.title %}
+      {{ section.title }}
+    {% endif %}
   </p>
 </h1>
 
-{{ page.content | safe }}
+{% if page.content %}
+  {{ page.content | safe }}
+{% endif %}
+
+{% if section.content %}
+  {{ section.content | safe }}
+{% endif %}
+
 {% endblock content %}
