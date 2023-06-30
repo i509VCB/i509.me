@@ -29,13 +29,13 @@ p, h1, h2, h3, h4, h5, ul, li::marker, tr {
     padding-bottom: 0.5pt;
 }
 
-td {
+td, th {
     padding: 4px;
     border: 1px solid;
     color: white;
 }
 
-table, td {
+table, td, th {
     border-collapse: collapse;
 }
 

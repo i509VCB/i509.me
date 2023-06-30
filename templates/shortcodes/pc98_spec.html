@@ -1,0 +1,72 @@
+<table>
+  <tbody>
+    <tr>
+      <td>CPU</td>
+      <td>{{cpu}} ({{cpu_freq}} MHz)</td>
+    </tr>
+    <tr>
+      <td>CPU upgrade</td>
+      <td>{{cpu_upgrade}}</td>
+    </tr>
+    <tr>
+      <td>Memory</td>
+      <td>{{memory}} ({{memory_max}} max)</td>
+    </tr>
+    <tr>
+      <td>Floppy Drives</td>
+      <td>{{fdd_count}}</td>
+    </tr>
+    <tr>
+      <td>CD-ROM</td>
+      <td>{% if cd_rom %} {{cd_rom}} {% else %} None {% endif %}</td>
+    </tr>
+    <tr>
+      <td>Sound</td>
+      <td>{% if sound %} {{sound}} {% else %} None {% endif %}</td>
+    </tr>
+    <tr>
+      <td>Graphics</td>
+      <td>
+        {# Fail invalid cases #}
+        {% if egc and not grcg %}
+          {{ throw(message="EGC set in graphics but GRCG is disabled") }}
+        {% endif %}
+
+        {% if pegc and not egc %}
+          {{ throw(message="PEGC set in graphics but EGC is disabled") }}
+        {% endif %}
+
+        {% set graphics = [] %}
+        {% if pegc %}
+          {% set pegc = ["PEGC"] %}
+          {% set graphics = pegc | concat(with = graphics) %}
+        {% endif %}
+
+        {% if egc %}
+          {% set egc = ["EGC"] %}
+          {% set graphics = egc | concat(with = graphics) %}
+        {% endif %}
+
+        {% if grcg %}
+          {% set grcg = ["GRCG"] %}
+          {% set graphics = grcg | concat(with = graphics) %}
+        {% endif %}
+
+        {% set graphics = ["GDC"] | concat(with = graphics) %}
+        {{ graphics | join(sep=", ") }}
+      </td>
+    </tr>
+    <tr>
+      <td>Window Accelerator</td>
+      <td>{% if window_accelerator %} {{window_accelerator}} {% else %} None {% endif %}</td>
+    </tr>
+    <tr>
+      <td>C-Bus slots</td>
+      <td>{{cbus_slots}}x</td>
+    </tr>
+    <tr>
+      <td>Hard Drive</td>
+      <td>{% if hard_drive %} {{hard_drive}} {% else %} None {% endif %}</td>
+    </tr>
+  </tbody>
+</table>
