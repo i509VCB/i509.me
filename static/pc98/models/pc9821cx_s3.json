@@ -23,7 +23,7 @@
   },
   "floppy_drive": {
     "type": "3.5",
-    "model": "Citizen E26H-15G",
+    "model": "Citizen OSDE-15G",
     "external": false,
     "base_count": 1,
     "max_count": 2,
