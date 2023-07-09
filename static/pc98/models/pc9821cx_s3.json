@@ -1,0 +1,38 @@
+{
+  "$schema": "./model.json",
+  "model": "PC-9821Cx model S3",
+  "family": "Canbe",
+  "cpu": {
+    "type": "486SX",
+    "clock_speed": 33,
+    "fpu": "unknown",
+    "upgradable": "accelerator_card"
+  },
+  "graphics": {
+    "grcg": true,
+    "egc": true,
+    "pegc_packed": false,
+    "pegc_planar": false,
+    "window_accelerator": true,
+    "window_accelerator_type": "Cirrus Logic GD5430"
+  },
+  "sound": {
+    "26": "incompatible",
+    "26k": "builtin",
+    "86": "builtin"
+  },
+  "floppy_drive": {
+    "type": "3.5",
+    "model": "Citizen E26H-15G",
+    "external": false,
+    "base_count": 1,
+    "max_count": 2,
+    "upgrade_note": "Requires a PC-9821Cx-E02 upgrade"
+  },
+  "hard_drive": {
+    "type": "ide",
+    "capacity": 540,
+    "capacity_unit": "MB",
+    "size": "3.5"
+  }
+}

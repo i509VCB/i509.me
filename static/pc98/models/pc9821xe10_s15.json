@@ -1,0 +1,38 @@
+{
+  "$schema": "./model.json",
+  "model": "PC-9821Xe10 model S15",
+  "family": "X-Mate",
+  "cpu": {
+    "type": "486DX4",
+    "clock_speed": 100,
+    "fpu": "unknown",
+    "upgradable": true
+  },
+  "graphics": {
+    "grcg": true,
+    "egc": true,
+    "pegc_packed": false,
+    "pegc_planar": false,
+    "window_accelerator": true,
+    "window_accelerator_type": "Cirrus Logic GD5430"
+  },
+  "sound": {
+    "26": "incompatible",
+    "26k": "cbus",
+    "86": "cbus"
+  },
+  "floppy_drive": {
+    "type": "3.5",
+    "model": "Citizen OSD-E26J",
+    "external": false,
+    "base_count": 1,
+    "max_count": 2,
+    "upgrade_note": "Requires a PC-9821X-E02 upgrade"
+  },
+  "hard_drive": {
+    "type": "ide",
+    "capacity": 420,
+    "capacity_unit": "MB",
+    "size": "3.5"
+  }
+}

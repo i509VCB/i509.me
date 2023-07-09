@@ -1,0 +1,28 @@
+{
+  "$schema": "./model.json",
+  "model": "PC-9801",
+  "cpu": {
+    "type": "8086",
+    "clock_speed": 5,
+    "fpu": "unknown",
+    "upgradable": true
+  },
+  "graphics": {
+    "grcg": false,
+    "egc": false,
+    "pegc_packed": false,
+    "pegc_planar": false,
+    "window_accelerator": false
+  },
+  "sound": {
+    "26": "unknown",
+    "26k": "incompatible",
+    "86": "incompatible"
+  },
+  "floppy_drive": {
+    "type": "external"
+  },
+  "hard_drive": {
+    "type": "none"
+  }
+}

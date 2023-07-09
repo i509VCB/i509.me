@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://i509.me/schemas/pc98_model.json",
+  "description": "Describes a PC-98 machine's hardware and capabilities",
+  "type": "object",
+  "properties": {
+    "$schema": { "type": "string" },
+
+    "model": { "type": "string" },
+
+    "family": {
+      "type": "string",
+      "examples": [
+        "98Multi",
+        "98Fellow",
+        "A-Mate",
+        "Canbe",
+        "Cereb",
+        "R-Mate",
+        "Valuestar",
+        "X-Mate"
+      ]
+    },
+
+    "cpu": {
+      "description": "CPU installed in the machine",
+      "type": "object",
+      "properties": {
+        "type": { "$ref": "#/$defs/cpu_type" },
+        "clock_speed": {
+          "description": "Clock speed in MHz",
+          "type": "number"
+        },
+        "fpu": { "$ref": "#/$defs/fpu_type" },
+        "upgradable": { "$ref": "#/$defs/cpu_upgradeability" }
+      },
+      "required": [
+        "type",
+        "clock_speed",
+        "fpu",
+        "upgradable"
+      ],
+      "additionalProperties": false
+    },
+
+    "graphics": {
+      "type": "object",
+      "properties": {
+        "grcg": { "type": "boolean" },
+        "egc": {
+          "description": "If EGC is true, GRCG should also be true",
+          "type": "boolean"
+        },
+        "pegc_packed": { "type": "boolean" },
+        "pegc_planar": { "type": "boolean" },
+        "window_accelerator": { "type": "boolean" },
+        "window_accelerator_type": { "type": "string" }
+      },
+      "required": [
+        "grcg",
+        "egc",
+        "pegc_packed",
+        "pegc_planar",
+        "window_accelerator"
+      ],
+      "if": {
+        "properties": {
+          "window_accelerator": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": ["window_accelerator_type"]
+      },
+      "additionalProperties": false
+    },
+
+    "sound": {
+      "type": "object",
+      "properties": {
+        "26": {
+          "description": "A PC-9801-26 is only supported in 8086 and V30 machines",
+          "$ref": "#/$defs/sound_support"
+        },
+        "26k": {
+          "description": "An updated PC-9801-26 with an internal clock",
+          "$ref": "#/$defs/sound_support"
+        },
+        "86": {
+          "description": "A PC-9801-86 requires at least a 286. -86 support also implies 26k support",
+          "$ref": "#/$defs/sound_support"
+        }
+      },
+      "required": [
+        "26",
+        "26k",
+        "86"
+      ],
+      "additionalProperties": false
+    },
+
+    "floppy_drive": {
+      "type": "object",
+      "properties": {
+        "type": { "$ref": "#/$defs/floppy_type" },
+        "model": {
+          "type": "string"
+        },
+        "external": { "$ref": "#/$defs/external_floppy_type" },
+        "base_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "upgrade_note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "if": {
+        "properties": {
+          "type": {
+            "not": {
+              "const": "external"
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["external", "base_count", "max_count", "model"]
+      },
+      "additionalProperties": false
+    },
+
+    "hard_drive": {
+      "type": "object",
+      "properties": {
+        "type": { "$ref": "#/$defs/hard_drive_type" },
+        "capacity": { "$ref": "#/$defs/hard_drive_capacity" },
+        "capacity_unit": {"$ref": "#/$defs/hard_drive_capacity_unit" },
+        "size": {"$ref": "#/$defs/hard_drive_size" }
+      },
+      "if": {
+        "properties": {
+          "type": {
+            "not": {
+              "const": "none"
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["capacity", "capacity_unit", "size"]
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "model",
+    "cpu",
+    "graphics",
+    "sound",
+    "floppy_drive",
+    "hard_drive"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "sound_support": {
+      "type": "string",
+      "enum": [
+        "builtin",
+        "cbus",
+        "incompatible",
+        "unknown"
+      ]
+    },
+
+    "cpu_type": {
+      "type": "string",
+      "enum": [
+        "8086",
+        "V30",
+        "286",
+        "386SX",
+        "386DX",
+        "486SX",
+        "486DX",
+        "486DX2",
+        "486DX4",
+        "PODP5V"
+      ]
+    },
+
+    "fpu_type": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "none",
+        "8087",
+        "287",
+        "387",
+        "487"
+      ]
+    },
+
+    "cpu_upgradeability": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "const": "accelerator_card" }
+      ]
+    },
+
+    "floppy_type": {
+      "type": "string",
+      "enum": [
+        "external",
+        "3.5",
+        "5.25"
+      ]
+    },
+
+    "external_floppy_type": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "const": "cbus" }
+      ]
+    },
+
+    "hard_drive_type": {
+      "type": "string",
+      "enum": [
+        "none",
+        "sasi",
+        "ide",
+        "unknown"
+      ]
+    },
+
+    "hard_drive_capacity": {
+      "type": "number",
+      "minimum": 1
+    },
+
+    "hard_drive_capacity_unit": {
+      "type": "string",
+      "enum": [
+        "MB",
+        "GB"
+      ]
+    },
+
+    "hard_drive_size": {
+      "$comment": "Hard drive size in inches",
+      "type": "string",
+      "enum": [
+        "8",
+        "5.25",
+        "3.5",
+        "2.5",
+        "unknown"
+      ]
+    }
+  }
+}
